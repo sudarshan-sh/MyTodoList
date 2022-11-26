@@ -1,0 +1,90 @@
+.bg-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100vh;
+  background-color: #ecedf6;
+}
+.app-container {
+  margin-top: 20px;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.main-headingf {
+  font-family: "Calibri";
+  font-size: 30px;
+  font-weight: bolder;
+  color: #646681;
+  text-align: center;
+}
+.heading {
+  align-self: center;
+  font-family: "Calibri";
+  font-size: 25px;
+  font-weight: bolder;
+  color: #646681;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.labelStyle {
+  font-family: "Calibri";
+  font-size: 20px;
+  font-weight: 400;
+  color: #646681;
+  margin-right: 10px;
+}
+.inputStyle {
+  outline: none;
+  border: none;
+  min-height: 25px;
+  min-width: 100px;
+  flex-grow: 1;
+  background-color: #ffff;
+  font-family: "calibri";
+  padding: 3px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  margin-right: 20px;
+}
+.button {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  color: #ffff;
+  background-color: #646ff0;
+}
+.input-container {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+.input-container {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+  }
+  .todoList-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .todo-container {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #d0d4d5;
+    align-self: stretch;
+  }
