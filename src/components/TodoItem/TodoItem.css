@@ -1,0 +1,61 @@
+.incompleteClass {
+    text-decoration: none;
+  }
+  .completeClass {
+    text-decoration: line-through;
+  }
+  .todoItemContainer {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #ffff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  .labelStyleChild {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-grow: 1;
+    min-width: 200px;
+  }
+  .text {
+    font-family: "Calibri";
+    font-size: 16px;
+    font-weight: 400;
+    color: #646681;
+    margin: 0px;
+  }
+  .text1 {
+    font-family: "Calibri";
+    font-weight: 400;
+    color: #333737;
+    margin: 0px;
+    font-size: 22px;
+  }
+  .text2 {
+    font-family: "Calibri";
+    font-size: 16px;
+    font-weight: 400;
+    color: #646681;
+    margin: 0px;
+    text-align: right;
+  }
+  .button2 {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-family: "Calibri";
+    font-weight: 400;
+    font-size: 20px;
+    color: #333737;
+  }
+  .checkBox {
+    margin: auto;
+    width: 39px;
+    height: 39px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 10px;
+  }

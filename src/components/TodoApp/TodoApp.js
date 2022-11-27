@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./TodoApp.css";
-import TodoItem from '../TodoItem/TodoItem'
+import TodoItem from "../TodoItem/TodoItem";
 import { v4 } from "uuid";
 
 const STATUS_CONSTANTS = { COMPLETE: "complete", INCOMPLETE: "incomplete" };
@@ -9,7 +9,7 @@ const defaultTodoList = localStorage.getItem("todoList")
   : [];
 
 const TodoApp = () => {
-  const [todoList, setTodoList] = useState(defaultTodoList);
+  const [todoList, setTodosList] = useState(defaultTodoList);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
@@ -18,22 +18,100 @@ const TodoApp = () => {
 
   const addTodoHandler = (e) => {
     e.preventDefault();
-    console.log("submitting the data!");
+    const newTodoItem = {
+      id: v4(),
+      name,
+      description,
+      time,
+      isComplete: status === STATUS_CONSTANTS.COMPLETE ? true : false,
+    };
+    const actualTodosList = JSON.parse(localStorage.getItem("todolist"));
+    const newActualTodosList = actualTodosList
+      ? [...actualTodosList, newTodoItem]
+      : [newTodoItem];
+    localStorage.setItem("todolist", JSON.stringify(newActualTodosList));
+    const filteredTodos = newActualTodosList.filter((item) => {
+      if (displayFilter === "all") {
+        return true;
+      } else {
+        return (
+          (item.isComplete
+            ? STATUS_CONSTANTS.COMPLETE
+            : STATUS_CONSTANTS.INCOMPLETE) === displayFilter
+        );
+      }
+    });
+    setTodosList(filteredTodos);
+    setName("");
+    setDescription("");
+    setTime("");
+    setStatus(STATUS_CONSTANTS.INCOMPLETE);
   };
 
   const changeFilterHandler = (event) => {
     const currentFilterValue = event.target.value;
-    const actualTodosList = JSON.parse(localStorage.getItem('todolist'));
-    const filteredTodos = actualTodosList ? (actualTodosList.filter((item) => {
-      if(currentFilterValue === 'all'){
+    const actualTodosList = JSON.parse(localStorage.getItem("todolist"));
+    const filteredTodos = actualTodosList
+      ? actualTodosList.filter((item) => {
+          if (currentFilterValue === "all") {
+            return true;
+          } else {
+            return (
+              (item.isComplete
+                ? STATUS_CONSTANTS.COMPLETE
+                : STATUS_CONSTANTS.INCOMPLETE) === currentFilterValue
+            );
+          }
+        })
+      : [];
+    console.log(filteredTodos);
+    setTodosList(filteredTodos);
+    setDisplayFilter(currentFilterValue);
+  };
+
+  const changeTodoCompleteHandler = (currentID) => {
+    const actualTodosList = JSON.parse(localStorage.getItem("todolist"));
+    const newActualTodosList = actualTodosList.map((item) => {
+      if (item.id === currentID) {
+        return { ...item, isComplete: !item.isComplete };
+      } else {
+        return item;
+      }
+    });
+    localStorage.setItem("todolist", JSON.stringify(newActualTodosList));
+    const filteredTodos = newActualTodosList.filter((item) => {
+      if (displayFilter === "all") {
         return true;
       } else {
-        return ((item.isComplete ? STATUS_CONSTANTS.COMPLETE : STATUS_CONSTANTS.INCOMPLETE) === currentFilterValue)
+        return (
+          (item.isComplete
+            ? STATUS_CONSTANTS.COMPLETE
+            : STATUS_CONSTANTS.INCOMPLETE) === displayFilter
+        );
       }
-    })) : []
-    setTodoList(filteredTodos);
-    setDisplayFilter(currentFilterValue);
-  }
+    });
+    setTodosList(filteredTodos);
+  };
+
+  const deleteTodoHandler = (currentID) => {
+    const actualTodosList = JSON.parse(localStorage.getItem("todolist"));
+    const newActualTodosList = actualTodosList.filter(
+      (item) => item.id !== currentID
+    );
+    localStorage.setItem("todolist", JSON.stringify(newActualTodosList));
+    const filteredTodos = newActualTodosList.filter((item) => {
+      if (displayFilter === "all") {
+        return true;
+      } else {
+        return (
+          (item.isComplete
+            ? STATUS_CONSTANTS.COMPLETE
+            : STATUS_CONSTANTS.INCOMPLETE) === displayFilter
+        );
+      }
+    });
+    setTodosList(filteredTodos);
+  };
 
   return (
     <div className="bg-container">
@@ -126,14 +204,23 @@ const TodoApp = () => {
               onChange={changeFilterHandler}
             >
               <option value="all">All</option>
-              <option value={STATUS_CONSTANTS.COMPLETE}>Already Completed</option>
+              <option value={STATUS_CONSTANTS.COMPLETE}>
+                Already Completed
+              </option>
               <option value={STATUS_CONSTANTS.INCOMPLETE}>InComplete</option>
             </select>
           </div>
           <div className="todo-container">
-              {todoList.map((((item) => {
-                <TodoItem />
-              })))}
+            {todoList.map((item) => {
+              return (
+                <TodoItem
+                  key={item.id}
+                  item={item}
+                  changeTodoCompleteHandler={changeTodoCompleteHandler}
+                  deleteTodoHandler={deleteTodoHandler}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

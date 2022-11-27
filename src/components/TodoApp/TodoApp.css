@@ -12,7 +12,17 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  gap: 4rem;
 }
+
+.form-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    
+  }
 
 .main-headingf {
   font-family: "Calibri";
